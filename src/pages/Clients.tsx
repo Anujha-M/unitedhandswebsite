@@ -10,16 +10,22 @@ import {
   Rating,
   Paper,
   Chip,
+  Stack,
+  Button,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { ArrowForward } from '@mui/icons-material';
 
 const clients = [
   {
     name: 'TechCorp Solutions',
     industry: 'Technology',
     project: 'E-Commerce Platform',
-    description: 'Complete e-commerce solution with mobile app and admin dashboard',
-    testimonial: 'Exceptional work quality and timely delivery. The team understood our requirements perfectly.',
+    description: 'Complete e-commerce solution with mobile app and admin dashboard for seamless online shopping experience',
+    testimonial: 'Exceptional work quality and timely delivery. The team understood our requirements perfectly and delivered beyond expectations.',
     rating: 5,
     avatar: 'T',
     color: '#2563eb',
@@ -28,8 +34,8 @@ const clients = [
     name: 'HealthCare Plus',
     industry: 'Healthcare',
     project: 'Patient Management System',
-    description: 'Comprehensive healthcare management system with appointment scheduling',
-    testimonial: 'Professional team with great attention to detail. Highly recommended for healthcare projects.',
+    description: 'Comprehensive healthcare management system with appointment scheduling and patient records management',
+    testimonial: 'Professional team with great attention to detail. Highly recommended for healthcare projects with complex requirements.',
     rating: 5,
     avatar: 'H',
     color: '#059669',
@@ -38,8 +44,8 @@ const clients = [
     name: 'FinanceFlow',
     industry: 'Finance',
     project: 'Financial Dashboard',
-    description: 'Real-time financial analytics and reporting dashboard',
-    testimonial: 'Outstanding technical expertise and excellent communication throughout the project.',
+    description: 'Real-time financial analytics and reporting dashboard with advanced data visualization capabilities',
+    testimonial: 'Outstanding technical expertise and excellent communication throughout the project. Delivered a robust financial solution.',
     rating: 5,
     avatar: 'F',
     color: '#7c3aed',
@@ -48,8 +54,8 @@ const clients = [
     name: 'EduTech Academy',
     industry: 'Education',
     project: 'Learning Management System',
-    description: 'Online learning platform with video streaming and assessment tools',
-    testimonial: 'Innovative solutions and user-friendly design. Students love the platform!',
+    description: 'Online learning platform with video streaming, interactive assessments, and progress tracking tools',
+    testimonial: 'Innovative solutions and user-friendly design. Students and teachers love the intuitive platform interface!',
     rating: 5,
     avatar: 'E',
     color: '#dc2626',
@@ -58,8 +64,8 @@ const clients = [
     name: 'RetailMax',
     industry: 'Retail',
     project: 'Inventory Management',
-    description: 'Advanced inventory tracking and management system',
-    testimonial: 'Streamlined our operations significantly. Great ROI on our investment.',
+    description: 'Advanced inventory tracking and management system with real-time stock monitoring and automated alerts',
+    testimonial: 'Streamlined our operations significantly. Great ROI on our investment with improved efficiency and reduced costs.',
     rating: 5,
     avatar: 'R',
     color: '#ea580c',
@@ -68,8 +74,8 @@ const clients = [
     name: 'LogiTrack',
     industry: 'Logistics',
     project: 'Fleet Management App',
-    description: 'Real-time fleet tracking and route optimization system',
-    testimonial: 'Reduced our operational costs by 30%. Excellent project management.',
+    description: 'Real-time fleet tracking and route optimization system with GPS integration and driver management',
+    testimonial: 'Reduced our operational costs by 30%. Excellent project management and technical implementation throughout.',
     rating: 5,
     avatar: 'L',
     color: '#0891b2',
@@ -78,8 +84,8 @@ const clients = [
     name: 'FoodieHub',
     industry: 'Food & Beverage',
     project: 'Restaurant Management',
-    description: 'Complete restaurant management system with online ordering',
-    testimonial: 'Boosted our online orders by 150%. Amazing user experience design.',
+    description: 'Complete restaurant management system with online ordering, table reservations, and kitchen management',
+    testimonial: 'Boosted our online orders by 150%. Amazing user experience design that customers absolutely love using.',
     rating: 5,
     avatar: 'F',
     color: '#65a30d',
@@ -88,8 +94,8 @@ const clients = [
     name: 'PropertyPro',
     industry: 'Real Estate',
     project: 'Property Portal',
-    description: 'Real estate listing and management platform',
-    testimonial: 'Modern design and powerful features. Our agents are very satisfied.',
+    description: 'Real estate listing and management platform with virtual tours, mortgage calculator, and agent tools',
+    testimonial: 'Modern design and powerful features. Our agents are very satisfied with the comprehensive functionality provided.',
     rating: 5,
     avatar: 'P',
     color: '#9333ea',
@@ -98,8 +104,8 @@ const clients = [
     name: 'MediaStream',
     industry: 'Entertainment',
     project: 'Video Streaming App',
-    description: 'High-quality video streaming platform with social features',
-    testimonial: 'Scalable architecture that handles thousands of concurrent users seamlessly.',
+    description: 'High-quality video streaming platform with social features, content management, and analytics dashboard',
+    testimonial: 'Scalable architecture that handles thousands of concurrent users seamlessly. Outstanding performance optimization.',
     rating: 5,
     avatar: 'M',
     color: '#be185d',
@@ -108,8 +114,8 @@ const clients = [
     name: 'AutoCare',
     industry: 'Automotive',
     project: 'Service Booking System',
-    description: 'Automotive service booking and management platform',
-    testimonial: 'Simplified our booking process and improved customer satisfaction significantly.',
+    description: 'Automotive service booking and management platform with appointment scheduling and service history tracking',
+    testimonial: 'Simplified our booking process and improved customer satisfaction significantly. Excellent technical support provided.',
     rating: 5,
     avatar: 'A',
     color: '#0369a1',
@@ -125,7 +131,16 @@ const industries = [
   { name: 'Logistics', count: 1, color: '#0891b2' },
 ];
 
+const stats = [
+  { number: '10+', label: 'Happy Clients', color: '#2563eb' },
+  { number: '20+', label: 'Projects Delivered', color: '#7c3aed' },
+  { number: '100%', label: 'Client Satisfaction', color: '#059669' },
+];
+
 export const Clients = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
     <Box>
       {/* Hero Section */}
@@ -133,8 +148,11 @@ export const Clients = () => {
         sx={{
           background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
           color: 'white',
-          py: { xs: 8, md: 12 },
+          py: { xs: 6, md: 10, lg: 12 },
           textAlign: 'center',
+          minHeight: { xs: '50vh', md: '60vh' },
+          display: 'flex',
+          alignItems: 'center',
         }}
       >
         <Container maxWidth="lg">
@@ -146,7 +164,7 @@ export const Clients = () => {
             <Typography
               variant="h1"
               sx={{
-                fontSize: { xs: '2.5rem', md: '3.5rem' },
+                fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem', lg: '3.5rem' },
                 fontWeight: 700,
                 mb: 3,
               }}
@@ -161,6 +179,8 @@ export const Clients = () => {
                 maxWidth: 800,
                 mx: 'auto',
                 lineHeight: 1.6,
+                fontSize: { xs: '1.1rem', md: '1.25rem' },
+                px: { xs: 2, md: 0 },
               }}
             >
               Trusted by businesses across various industries to deliver exceptional 
@@ -171,77 +191,53 @@ export const Clients = () => {
       </Box>
 
       {/* Stats Section */}
-      <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Grid container spacing={4} sx={{ mb: 8 }}>
-          <Grid item xs={12} md={4}>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <Paper
-                elevation={0}
-                sx={{
-                  p: 4,
-                  textAlign: 'center',
-                  bgcolor: 'primary.main',
-                  color: 'white',
-                  borderRadius: 3,
-                }}
+      <Container maxWidth="lg" sx={{ py: { xs: 6, md: 8 } }}>
+        <Grid container spacing={{ xs: 3, md: 4 }} sx={{ mb: { xs: 6, md: 8 } }}>
+          {stats.map((stat, index) => (
+            <Grid item xs={12} md={4} key={stat.label}>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <Typography variant="h2" sx={{ fontWeight: 700, mb: 1 }}>
-                  10+
-                </Typography>
-                <Typography variant="h6">Happy Clients</Typography>
-              </Paper>
-            </motion.div>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              <Paper
-                elevation={0}
-                sx={{
-                  p: 4,
-                  textAlign: 'center',
-                  bgcolor: 'secondary.main',
-                  color: 'white',
-                  borderRadius: 3,
-                }}
-              >
-                <Typography variant="h2" sx={{ fontWeight: 700, mb: 1 }}>
-                  20+
-                </Typography>
-                <Typography variant="h6">Projects Delivered</Typography>
-              </Paper>
-            </motion.div>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <Paper
-                elevation={0}
-                sx={{
-                  p: 4,
-                  textAlign: 'center',
-                  bgcolor: 'success.main',
-                  color: 'white',
-                  borderRadius: 3,
-                }}
-              >
-                <Typography variant="h2" sx={{ fontWeight: 700, mb: 1 }}>
-                  100%
-                </Typography>
-                <Typography variant="h6">Client Satisfaction</Typography>
-              </Paper>
-            </motion.div>
-          </Grid>
+                <Card
+                  elevation={0}
+                  sx={{
+                    p: { xs: 3, md: 4 },
+                    textAlign: 'center',
+                    bgcolor: stat.color,
+                    color: 'white',
+                    borderRadius: 3,
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                      boxShadow: '0 8px 25px rgba(0, 0, 0, 0.2)',
+                    },
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  <Typography 
+                    variant="h2" 
+                    sx={{ 
+                      fontWeight: 700, 
+                      mb: 1,
+                      fontSize: { xs: '2.5rem', md: '3rem' },
+                    }}
+                  >
+                    {stat.number}
+                  </Typography>
+                  <Typography 
+                    variant="h6"
+                    sx={{
+                      fontSize: { xs: '1.125rem', md: '1.25rem' },
+                      fontWeight: 500,
+                    }}
+                  >
+                    {stat.label}
+                  </Typography>
+                </Card>
+              </motion.div>
+            </Grid>
+          ))}
         </Grid>
 
         {/* Industries Section */}
@@ -257,6 +253,7 @@ export const Clients = () => {
               mb: 2,
               fontWeight: 700,
               color: 'text.primary',
+              fontSize: { xs: '1.8rem', md: '2.5rem' },
             }}
           >
             Industries We Serve
@@ -265,42 +262,48 @@ export const Clients = () => {
             variant="h6"
             sx={{
               textAlign: 'center',
-              mb: 6,
+              mb: { xs: 4, md: 6 },
               color: 'text.secondary',
               maxWidth: 600,
               mx: 'auto',
+              fontSize: { xs: '1rem', md: '1.125rem' },
+              px: { xs: 2, md: 0 },
             }}
           >
             We have experience working across diverse industries, understanding unique challenges and requirements
           </Typography>
         </motion.div>
 
-        <Grid container spacing={3} sx={{ mb: 8 }}>
+        <Grid container spacing={{ xs: 2, md: 3 }} sx={{ mb: { xs: 6, md: 8 } }}>
           {industries.map((industry, index) => (
-            <Grid item xs={12} sm={6} md={4} key={industry.name}>
+            <Grid item xs={6} sm={4} md={2} key={industry.name}>
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <Paper
+                <Card
                   elevation={0}
                   sx={{
-                    p: 3,
+                    p: { xs: 2, md: 3 },
                     textAlign: 'center',
                     bgcolor: 'grey.50',
                     borderRadius: 3,
+                    border: '1px solid',
+                    borderColor: 'grey.200',
+                    height: '100%',
                     '&:hover': {
                       transform: 'translateY(-4px)',
                       boxShadow: '0 8px 25px rgba(0, 0, 0, 0.1)',
+                      borderColor: industry.color,
                     },
                     transition: 'all 0.3s ease',
                   }}
                 >
                   <Box
                     sx={{
-                      width: 60,
-                      height: 60,
+                      width: { xs: 48, md: 60 },
+                      height: { xs: 48, md: 60 },
                       borderRadius: '50%',
                       bgcolor: industry.color,
                       display: 'flex',
@@ -310,17 +313,37 @@ export const Clients = () => {
                       mb: 2,
                     }}
                   >
-                    <Typography variant="h5" sx={{ color: 'white', fontWeight: 700 }}>
+                    <Typography 
+                      variant="h5" 
+                      sx={{ 
+                        color: 'white', 
+                        fontWeight: 700,
+                        fontSize: { xs: '1.25rem', md: '1.5rem' },
+                      }}
+                    >
                       {industry.count}
                     </Typography>
                   </Box>
-                  <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+                  <Typography 
+                    variant="h6" 
+                    sx={{ 
+                      fontWeight: 600, 
+                      mb: 1,
+                      fontSize: { xs: '1rem', md: '1.125rem' },
+                    }}
+                  >
                     {industry.name}
                   </Typography>
-                  <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                  <Typography 
+                    variant="body2" 
+                    sx={{ 
+                      color: 'text.secondary',
+                      fontSize: { xs: '0.75rem', md: '0.875rem' },
+                    }}
+                  >
                     {industry.count} Project{industry.count > 1 ? 's' : ''}
                   </Typography>
-                </Paper>
+                </Card>
               </motion.div>
             </Grid>
           ))}
@@ -328,7 +351,7 @@ export const Clients = () => {
       </Container>
 
       {/* Client Testimonials */}
-      <Box sx={{ bgcolor: 'grey.50', py: 8 }}>
+      <Box sx={{ bgcolor: 'grey.50', py: { xs: 6, md: 8 } }}>
         <Container maxWidth="lg">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -342,6 +365,7 @@ export const Clients = () => {
                 mb: 2,
                 fontWeight: 700,
                 color: 'text.primary',
+                fontSize: { xs: '1.8rem', md: '2.5rem' },
               }}
             >
               Client Success Stories
@@ -350,17 +374,19 @@ export const Clients = () => {
               variant="h6"
               sx={{
                 textAlign: 'center',
-                mb: 6,
+                mb: { xs: 4, md: 6 },
                 color: 'text.secondary',
                 maxWidth: 600,
                 mx: 'auto',
+                fontSize: { xs: '1rem', md: '1.125rem' },
+                px: { xs: 2, md: 0 },
               }}
             >
               Hear what our clients say about their experience working with us
             </Typography>
           </motion.div>
 
-          <Grid container spacing={4}>
+          <Grid container spacing={{ xs: 3, md: 4 }}>
             {clients.map((client, index) => (
               <Grid item xs={12} md={6} lg={4} key={client.name}>
                 <motion.div
@@ -371,29 +397,41 @@ export const Clients = () => {
                   <Card
                     sx={{
                       height: '100%',
+                      border: '1px solid',
+                      borderColor: 'grey.200',
+                      borderRadius: 3,
+                      overflow: 'hidden',
                       '&:hover': {
                         transform: 'translateY(-8px)',
                         boxShadow: '0 12px 30px rgba(0, 0, 0, 0.15)',
+                        borderColor: client.color,
                       },
                       transition: 'all 0.3s ease',
                     }}
                   >
-                    <CardContent sx={{ p: 4 }}>
+                    <CardContent sx={{ p: { xs: 3, md: 4 } }}>
                       <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
                         <Avatar
                           sx={{
                             bgcolor: client.color,
-                            width: 56,
-                            height: 56,
+                            width: { xs: 48, md: 56 },
+                            height: { xs: 48, md: 56 },
                             mr: 2,
-                            fontSize: '1.5rem',
+                            fontSize: { xs: '1.25rem', md: '1.5rem' },
                             fontWeight: 700,
                           }}
                         >
                           {client.avatar}
                         </Avatar>
-                        <Box>
-                          <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                        <Box sx={{ flex: 1 }}>
+                          <Typography 
+                            variant="h6" 
+                            sx={{ 
+                              fontWeight: 600,
+                              fontSize: { xs: '1.125rem', md: '1.25rem' },
+                              mb: 0.5,
+                            }}
+                          >
                             {client.name}
                           </Typography>
                           <Chip
@@ -403,17 +441,30 @@ export const Clients = () => {
                               bgcolor: `${client.color}15`,
                               color: client.color,
                               fontWeight: 500,
+                              fontSize: '0.75rem',
                             }}
                           />
                         </Box>
                       </Box>
 
-                      <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+                      <Typography 
+                        variant="h6" 
+                        sx={{ 
+                          fontWeight: 600, 
+                          mb: 1,
+                          fontSize: { xs: '1rem', md: '1.125rem' },
+                        }}
+                      >
                         {client.project}
                       </Typography>
                       <Typography
                         variant="body2"
-                        sx={{ color: 'text.secondary', mb: 3, lineHeight: 1.6 }}
+                        sx={{ 
+                          color: 'text.secondary', 
+                          mb: 3, 
+                          lineHeight: 1.6,
+                          fontSize: { xs: '0.875rem', md: '0.9rem' },
+                        }}
                       >
                         {client.description}
                       </Typography>
@@ -428,9 +479,21 @@ export const Clients = () => {
                           fontStyle: 'italic',
                           color: 'text.secondary',
                           lineHeight: 1.6,
+                          fontSize: { xs: '0.875rem', md: '0.9rem' },
+                          position: 'relative',
+                          pl: 2,
+                          '&::before': {
+                            content: '"',
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            fontSize: '1.5rem',
+                            color: client.color,
+                            fontWeight: 700,
+                          },
                         }}
                       >
-                        "{client.testimonial}"
+                        {client.testimonial}"
                       </Typography>
                     </CardContent>
                   </Card>
@@ -438,6 +501,26 @@ export const Clients = () => {
               </Grid>
             ))}
           </Grid>
+
+          <Box sx={{ textAlign: 'center', mt: { xs: 4, md: 6 } }}>
+            <Button
+              variant="contained"
+              size="large"
+              component={Link}
+              to="/contact"
+              endIcon={<ArrowForward />}
+              sx={{
+                px: 4,
+                py: 1.5,
+                fontSize: '1.1rem',
+                '&:hover': {
+                  transform: 'translateY(-2px)',
+                },
+              }}
+            >
+              Start Your Project
+            </Button>
+          </Box>
         </Container>
       </Box>
     </Box>
