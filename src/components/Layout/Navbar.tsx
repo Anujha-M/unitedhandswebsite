@@ -70,13 +70,13 @@ export const Navbar = () => {
         {navItems.map((item) => (
           <div key={item.name}>
             <ListItem
-              button
               component={item.hasSubmenu ? 'div' : Link}
               to={!item.hasSubmenu ? item.path : undefined}
               onClick={item.hasSubmenu ? () => setServicesOpen(!servicesOpen) : handleDrawerToggle}
               sx={{
                 backgroundColor: isActive(item.path) ? 'primary.light' : 'transparent',
                 '&:hover': { backgroundColor: 'grey.100' },
+                cursor: 'pointer',
               }}
             >
               <ListItemText primary={item.name} />
@@ -88,11 +88,10 @@ export const Navbar = () => {
                   {services.map((service) => (
                     <ListItem
                       key={service}
-                      button
                       component={Link}
                       to="/services"
                       onClick={handleDrawerToggle}
-                      sx={{ pl: 4 }}
+                      sx={{ pl: 4, cursor: 'pointer' }}
                     >
                       <ListItemText primary={service} />
                     </ListItem>
