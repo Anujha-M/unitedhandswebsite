@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import {
   Code,
-  Mobile,
+  PhoneIphone,
   Web,
   Cloud,
   Support,
@@ -26,7 +26,7 @@ import { motion } from 'framer-motion';
 
 const services = [
   {
-    icon: <Mobile />,
+    icon: <PhoneIphone />,
     title: 'Mobile App Development',
     description: 'Native iOS and Android applications with cutting-edge technology',
     color: '#2563eb',
